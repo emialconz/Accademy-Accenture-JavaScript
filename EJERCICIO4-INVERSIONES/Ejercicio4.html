@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <input type="text" id="montoInversion">
+    <br><br>
+    <button type="button" id="calculoInversion">Calcular Inversion</button>
+    <br><br>
+    <label id="porMes"></label>
+    <br><br>
+    <label id="porTresMeses"></label>
+    <script>
+        let calcularInversion= document.getElementById("calculoInversion");
+        calcularInversion.addEventListener("click", () => {
+            let inversion=document.getElementById("montoInversion").value;
+            inversion=parseFloat(inversion.trim());
+
+            if(!isNaN(inversion)){
+                inversion = inversion * 0.335;
+                let inversionXMes= inversion/12;
+                let inversionTri= inversion/4;
+
+                document.getElementById("porMes").innerHTML = `El interes mensual es de ${inversionXMes.toFixed(2)}`;
+                document.getElementById("porTresMeses").innerHTML = `El interes mensual es de ${inversionTri.toFixed(2)}`;
+            }else{
+                console.log("Ingrese un numero");
+            }
+        });
+        
+    </script>
+
+</body>
+</html>

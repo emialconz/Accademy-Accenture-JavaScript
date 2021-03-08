@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <title>Calculo de la letra del DNI</title>
+    <form action="#">
+        <input type="numero" id="numero" name="numero" autocomplete="off"> Coloca tu numero de DNI
+        <br><br>
+        <input type="text" id="letra" name="letra" autocomplete="off"> Coloca la letra del DNI para verificar
+        <br><br>
+        <input type="text" id="dni" name="dni" disabled>
+        <input type="button" value="verificar" onclick="calcularLetra()">
+    </form>
+
+    <script>
+        var letras = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E', 'T'];
+
+        function calcularLetra(){
+            var numero = document.getElementById('numero').value;
+            if(numero<0 || numero>99999999){
+                document.write('el número proporcionado no es válido');
+                return
+            }
+            var resto = numero % 23;
+            var letraCalculada = letras[resto];
+            var letra = (document.getElementById('letra').value).toUpperCase();
+            if(letraCalculada != letra){
+                document.write('La letra que ha indicado no es correcta');
+            }else{
+                document.write('El número y la letra de DNI son correctos')
+            }
+            //var dni = numero + letraCalculada;
+            //document.getElementById('dni').value=dni;
+            //console.log(letraCalculada);
+        }
+
+    </script>
+
+</body>
+</html>

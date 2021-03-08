@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="nombre_empresa">
+    <button type="button" onclick="Saludar()">Mandar Saludo</button>
+    <script>
+        let array_empresas = ["FORD", "ZARA", "GOOGLE"];
+        let mjs_saludos = ['Gracias por su compra, vuelva pronto!', 'Agradecemos que nos haya elegio!' , 'Como cliente ustedes son muy importantes, gracias por su compra', 'Graciass por la compra'];
+        function Saludar(){
+            let empresa = document.getElementById('nombre_empresa');
+            let valor = empresa.toUpperCase();
+            if(array_empresas.indexOf() >= 0){//Si tira -1 es porque el valor dadod nose encunatra en el array
+                switch(valor){
+                    case "FORD":
+                        console.log(mjs_saludos[0]);
+                    break;
+                    case "ZARA":
+                        console.log(mjs_saludos[1]);
+                    break;
+                    case "GOOGLE":
+                        console.log(mjs_saludos[2]);
+                        break;
+                }
+            }else{
+                let si_no = confirm("Esa empresa realmente existe? \n -Presione Aceptar si existe, de lo contrario precione cancelar");
+                if(si_no == true && empresa!= ''){
+                    console.log(mjs_saludos[3]);
+                }else{
+                    alert("Vuelva a ingresar el nombre de la empresa");
+                }
+            }
+        }
+    </script>
+</body>
+</html>

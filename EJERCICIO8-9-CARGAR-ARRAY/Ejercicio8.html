@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="valor_agregar">
+    <button type="button" id="agregarbtn" >agregar valor</button>
+    <ul id="verLista"></ul>
+    <script>
+        let val = document.getElementById('valor_agregar');
+        let agregarValor = document.getElementById("agregarbtn");
+        let verLista = document.getElementById("verLista");
+        let nuevosValores = [];
+        agregarValor.addEventListener('click', () => {
+            let valor = val.value;
+            let agregarValores = () => {
+                if(valor != ''){    
+                    verLista.innerHTML = `
+                    <p>Cargando valores...</p>
+                    <p>${nuevosValores}</p>
+                    `
+                    return new Promise((resolve, reject) =>{
+                        setTimeout(()=>{
+                            nuevosValores.push(valor);
+                            resolve(nuevosValores);
+                        },3000);
+                    });
+                }else{
+                    return new Promise((resolve, reject)=>{
+                        reject (console.log("No se pudo agregar el valor indicado"))
+                    })
+                }
+            }
+        agregarValores()
+        .then((array)=>verLista.innerHTML = `
+            <p>Se pudo cargar el valor indicado correctamente!</p>
+            <p>${nuevosValores}</p>
+            `)
+        .catch((err)=>verLista.innerHTML = `
+            <p>No pudo cargar el valor indicado</p>
+            <p>${nuevosValores}</p>
+            `);
+        })
+    </script>
+</body>
+</html>

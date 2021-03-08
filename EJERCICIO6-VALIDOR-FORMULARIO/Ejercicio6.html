@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Ejercicio 21 - Validación de formularios</title>
+
+    <style type="text/css">
+    body {font-family: arial, helvetica;}
+    form {
+        width: 600px;
+        margin: 20px auto 0 auto;
+    }
+    label {
+        float: left;
+        width: 200px;
+        font-weight: bold;
+    }
+    label[for="registro_condiciones"] {
+        float: none;
+    }
+    input[type="text"],
+    input[type="password"],
+    textarea {
+        width: 360px;
+    }
+    input[type="checkbox"] {
+        margin-left: 200px;
+    }
+    input[type="submit"] {
+        margin: 20px 0 0 200px;
+        display: block;
+    }
+    </style>
+</head>
+
+<body>
+    <form action="servidor.php" method="POST" id="registro">
+        <fieldset>
+            <legend>Registro</legend>
+            <label for="registro_nombre">Nombre:</label><input type="text" name="nombre" id="registro_nombre">
+            <label for="registro_apellidos">Apellido:</label><input type="text" name="apellido" id="registro_apellido">
+            <label for="registro_email">Email:</label><input type="text" name="email" id="registro_email" required>
+            <label for="registro_password">Password:</label><input type="password" name="password" id="registro_password">
+            <label for="registro_comentarios">Comentarios:</label><textarea name="comentarios" id="registro_comentarios" rows="10" maxlength="50"></textarea>
+            <input type="checkbox" name="condiciones" id="registro_condiciones" value="1" required><label for="registro_condiciones">Acepto las condiciones del servicio.</label>
+            <input type="submit" value="Enviar">
+        </fieldset>
+    </form>
+    <script>
+        let formulario = document.getElementById("registro");
+        let nombre = document.getElementById("registro_nombre");
+        let apellido = document.getElementById("registro_apellido");
+        let email = document.getElementById("registro_email");
+        let password = document.getElementById("registro_password");
+        let comentarios = document.getElementById("registro_comentarios");
+
+        nombre.addEventListener('blur', (event)=> noCampoVacio(event.target.value));
+        email.addEventListener('blur', (event)=> noCampoVacio(event.target.value));
+        email.addEventListener('blur', (event)=> verificarEmail(event.target.value));
+        comentarios.addEventListener('blur', (event)=> noCampoVacio(event.target.value));
+        comentarios.addEventListener('blur', (event)=> validarComentario(event.target.value));
+        password.addEventListener('blur', (event)=> noCampoVacio(event.target.value));
+        password.addEventListener('blur', (event)=> validarPassword(event.target.value));
+        formulario.addEventListener('submit', validarCampos);
+
+        function validarCampos(event){
+            let nombre_valido = noCampoVacio(nombre.value);
+            let email_valido = noCampoVacio(email.value);
+            let comentario_valido = noCampoVacio(comentario.value);
+            let password_valido = noCampoVacio(password.value);
+
+            if(!nombre_valido || !email_valido || !comentario_valido || !password_valido){
+                event.preventDefault();
+            }
+        }
+        function noCampoVacio(palabra){
+            if(palabra === ''){
+                alert("Este campo no puede estar vacio!");
+                return false;
+            }
+            return true;
+        }
+        function formatoEmail(valor) {
+            if (/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(valor)){
+            alert("La dirección de email " + valor + " es correcta!.");
+        } else {
+            alert("La dirección de email es incorrecta!.");
+            }
+        }
+        function verificarEmail(){
+            if(email === ''){
+                return false;
+            }else if (!formatoEmail(email)){
+                alert("La direccion de mail es incorrecta");
+                return false;
+            }
+            return true;
+        }
+        function validarComentario(comentario){
+            if(comentario.lenght > 50){
+                alert("Se supero los 50 caracteres");
+                return false;
+            }
+            return true;
+        }
+        function validarPassword(password){
+            if(password.lenght < 6){
+                alert('La constraseña debe tener al menos 6 caracteres');
+                return false;
+            }
+            let may = false;
+            let min = false;
+            let num = false;
+
+            for(let i=0; i<password.lenght; i++){
+                if (may&&min&&num){
+                    return true;
+                }
+                if(!isNaN(password[i])){
+                    num=true;
+                }else if(password[i]===password[i].toLowerCase()){
+                    min=true;
+                }else if(password[i]===password[i].toUpperCase()){
+                    may=true;
+                }
+            }
+            if(!(may&min&num)){
+                alert('El password debe tener al menos una letra minusculo, una mayuscula y un digito');
+                return false;
+            }
+        }
+
+        //nombre.addEventListener('blur', (event) => )
+    </script>
+    
+</body>
+</html>
+  
